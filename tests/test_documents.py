@@ -12,7 +12,7 @@ PROJECT_ROOT = Path(__file__).parents[1]
 
 def test_loads_all_knowledge_base_sources() -> None:
     documents = load_documents(PROJECT_ROOT / "data" / "knowledge_base")
-    assert len(documents) == 10
+    assert len(documents) == 11
     assert documents[0].document_id == "account-mfa"
 
 
