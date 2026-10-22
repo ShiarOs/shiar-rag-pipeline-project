@@ -1,0 +1,26 @@
+name: Python quality
+
+on:
+  pull_request:
+  push:
+    branches: [shiar]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+      - name: Install Python
+        run: uv python install 3.13
+      - name: Install locked dependencies
+        run: uv sync --locked --dev
+      - name: Lint
+        run: uv run ruff check src/northstar_rag tests
+      - name: Test
+        run: uv run pytest --cov=northstar_rag --cov-report=term-missing
